@@ -422,12 +422,17 @@ function onMineHit(at) {
     renderBoard(true); // último intento: se revelan todas para aprender
     const last = $('#board').querySelector(`[data-i="${at}"]`);
     if (last) { last.classList.remove('mine-shown'); last.classList.add('mine-hit'); last.innerHTML = DECA_SVG; }
+    S.sfx.error();
     setTimeout(() => { busy = false; openOv('ov-defeat'); }, 2000);
   }
 }
 
 function onWin() {
-  S.sfx.win();
+  if (current === 33) {
+    S.sfx.premio();
+  } else {
+    S.sfx.win();
+  }
   // Persistencia legítima: solo aquí se desbloquea, se revela la frase
   // y se anota la marca (fallos + 1 intento bueno, pistas, fecha).
   Store.registerCompletion(save, current, { a: failsThisLevel + 1, h: hintsThisLevel, at: Date.now() });

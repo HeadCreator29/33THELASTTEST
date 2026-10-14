@@ -5,6 +5,8 @@ let drone = [];
 let music = null;
 let musicFile = '/music/fondo.mp3';
 let bombSound = null;
+let errorSound = null;
+let premioSound = null;
 let enabled = true;
 
 export function setEnabled(v) {
@@ -48,6 +50,34 @@ export const sfx = {
       bombSound.play().catch(() => {});
     } catch {
       tone(140, 0.3, 'sawtooth', 0.12);
+    }
+  },
+  error: () => {
+    if (!enabled) return;
+    try {
+      if (!errorSound) {
+        errorSound = new Audio('/music/error.mp3');
+        errorSound.preload = 'auto';
+        errorSound.volume = 0.5;
+      }
+      errorSound.currentTime = 0;
+      errorSound.play().catch(() => {});
+    } catch {
+      tone(120, 0.5, 'sawtooth', 0.15);
+    }
+  },
+  premio: () => {
+    if (!enabled) return;
+    try {
+      if (!premioSound) {
+        premioSound = new Audio('/music/premio.mp3');
+        premioSound.preload = 'auto';
+        premioSound.volume = 0.6;
+      }
+      premioSound.currentTime = 0;
+      premioSound.play().catch(() => {});
+    } catch {
+      tone(523, 0.3); setTimeout(() => tone(659, 0.3), 150); setTimeout(() => tone(784, 0.5), 300);
     }
   },
   win: () => { tone(523, 0.14); setTimeout(() => tone(784, 0.2), 120); },
