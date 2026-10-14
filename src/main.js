@@ -422,8 +422,10 @@ function onMineHit(at) {
     renderBoard(true); // último intento: se revelan todas para aprender
     const last = $('#board').querySelector(`[data-i="${at}"]`);
     if (last) { last.classList.remove('mine-shown'); last.classList.add('mine-hit'); last.innerHTML = DECA_SVG; }
-    S.sfx.error();
-    setTimeout(() => { busy = false; openOv('ov-defeat'); }, 2000);
+    setTimeout(() => {
+      S.sfx.error();
+      busy = false; openOv('ov-defeat');
+    }, 2000);
   }
 }
 
