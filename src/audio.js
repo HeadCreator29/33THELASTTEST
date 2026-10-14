@@ -7,14 +7,19 @@ let musicFile = '/music/fondo.mp3';
 let bombSound = null;
 let errorSound = null;
 let premioSound = null;
-let enabled = true;
+let musicEnabled = true;
+let sfxEnabled = true;
 
-export function setEnabled(v) {
-  enabled = v;
+export function setMusicEnabled(v) {
+  musicEnabled = v;
   if (!v) { stopDrone(); stopMusic(); }
-  else if (music) startMusic(); // reanuda tras un gesto del usuario
+  else if (music) startMusic();
 }
-export function isEnabled() { return enabled; }
+export function setSfxEnabled(v) {
+  sfxEnabled = v;
+}
+export function isMusicEnabled() { return musicEnabled; }
+export function isSfxEnabled() { return sfxEnabled; }
 
 function ac() {
   if (!ctx) ctx = new (window.AudioContext || window.webkitAudioContext)();
@@ -23,7 +28,7 @@ function ac() {
 }
 
 export function tone(freq = 520, dur = 0.12, type = 'sine', vol = 0.1) {
-  if (!enabled) return;
+  if (!sfxEnabled) return;
   try {
     const c = ac();
     const o = c.createOscillator(), g = c.createGain();
@@ -39,7 +44,7 @@ export const sfx = {
   open: () => tone(340, 0.06, 'triangle', 0.06),
   flag: () => tone(660, 0.08, 'sine', 0.08),
   boom: () => {
-    if (!enabled) return;
+    if (!sfxEnabled) return;
     try {
       if (!bombSound) {
         bombSound = new Audio('/music/bomba.mp3');
@@ -53,7 +58,7 @@ export const sfx = {
     }
   },
   error: () => {
-    if (!enabled) return;
+    if (!sfxEnabled) return;
     try {
       if (!errorSound) {
         errorSound = new Audio('/music/error.mp3');
@@ -67,7 +72,7 @@ export const sfx = {
     }
   },
   premio: () => {
-    if (!enabled) return;
+    if (!sfxEnabled) return;
     try {
       if (!premioSound) {
         premioSound = new Audio('/music/premio.mp3');
@@ -85,7 +90,7 @@ export const sfx = {
 };
 
 export function startDrone() {
-  if (!enabled || drone.length) return;
+  if (!musicEnabled || drone.length) return;
   try {
     const c = ac();
     const g = c.createGain(); g.gain.value = 0.03; g.connect(c.destination);
@@ -106,7 +111,7 @@ export function stopDrone() {
 // porque el navegador bloquea el audio antes del primer gesto.
 // Si el archivo no existe, avisa en consola y el juego sigue sin música.
 export function startMusic(file) {
-  if (!enabled) return;
+  if (!musicEnabled) return;
   if (file) { musicFile = file; music = null; }
   if (music && !music.paused) return;
   try {

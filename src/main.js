@@ -42,7 +42,7 @@ let pin = '';             // dígitos marcados (declarado aquí: init() lo usa)
 init();
 
 function init() {
-  S.setEnabled(save.sound !== false);
+  S.setMusicEnabled(save.sound !== false);
   paintSound();
   $('#btn-start').onclick = () => { S.sfx.click(); S.startDrone(); S.startMusic(); show('screen-levels'); renderLevels(); };
   $('#btn-continue').onclick = () => { S.sfx.click(); S.startDrone(); S.startMusic(); show('screen-levels'); renderLevels(); };
@@ -55,7 +55,7 @@ function init() {
   $('#btn-reset').onclick = () => { S.sfx.click(); openOv('ov-wipe'); };
   $('#btn-wipe-no').onclick = () => { S.sfx.click(); closeOv('ov-wipe'); };
   $('#btn-wipe-yes').onclick = () => {
-    save = Store.resetSave(store); save.sound = S.isEnabled(); Store.persistSave(save, store);
+    save = Store.resetSave(store); save.sound = S.isMusicEnabled(); Store.persistSave(save, store);
     closeOv('ov-wipe'); refreshHome(); renderLevels(); show('screen-home'); S.sfx.click();
   };
   $('#btn-levels-home').onclick = () => { S.sfx.click(); refreshHome(); show('screen-home'); };
@@ -94,13 +94,13 @@ function openOv(id) { const o = $('#' + id); o.classList.remove('hidden'); reque
 function closeOv(id) { const o = $('#' + id); o.classList.remove('show'); o.classList.add('hidden'); }
 
 function toggleSound() {
-  const v = !S.isEnabled();
-  S.setEnabled(v); save.sound = v; Store.persistSave(save, store); paintSound(); S.sfx.click();
+  const v = !S.isMusicEnabled();
+  S.setMusicEnabled(v); save.sound = v; Store.persistSave(save, store); paintSound(); S.sfx.click();
 }
 function paintSound() {
-  const t = S.isEnabled() ? 'ON' : 'OFF';
+  const t = S.isMusicEnabled() ? 'ON' : 'OFF';
   $('#btn-sound').textContent = `SONIDO: ${t}`;
-  $('#btn-levels-sound').textContent = S.isEnabled() ? '♪' : '✕';
+  $('#btn-levels-sound').textContent = S.isMusicEnabled() ? '♪' : '✕';
 }
 function refreshHome() {
   const has = save.unlocked > 1 || save.completed.length > 0;
