@@ -4,6 +4,7 @@ let ctx = null;
 let drone = [];
 let music = null;
 let musicFile = '/music/fondo.mp3';
+let bombSound = null;
 let enabled = true;
 
 export function setEnabled(v) {
@@ -35,7 +36,20 @@ export function tone(freq = 520, dur = 0.12, type = 'sine', vol = 0.1) {
 export const sfx = {
   open: () => tone(340, 0.06, 'triangle', 0.06),
   flag: () => tone(660, 0.08, 'sine', 0.08),
-  boom: () => tone(140, 0.3, 'sawtooth', 0.12),
+  boom: () => {
+    if (!enabled) return;
+    try {
+      if (!bombSound) {
+        bombSound = new Audio('/music/bomba.mp3');
+        bombSound.preload = 'auto';
+        bombSound.volume = 0.5;
+      }
+      bombSound.currentTime = 0;
+      bombSound.play().catch(() => {});
+    } catch {
+      tone(140, 0.3, 'sawtooth', 0.12);
+    }
+  },
   win: () => { tone(523, 0.14); setTimeout(() => tone(784, 0.2), 120); },
   click: () => tone(500, 0.06, 'sine', 0.06),
 };
