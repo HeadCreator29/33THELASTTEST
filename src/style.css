@@ -36,7 +36,8 @@ html, body { margin: 0; padding: 0; background: var(--bg); color: var(--txt);
 #screen-lock .brand { margin-top: 0; }
 #screen-lock .game-name { margin-top: 16px; font-size: 17px; }
 #screen-game { padding: 10px 18px 12px; height: 100vh; height: 100dvh;
-  max-height: 100vh; max-height: 100dvh; overflow: hidden; justify-content: flex-start; }
+  max-height: 100vh; max-height: 100dvh; overflow: hidden; justify-content: flex-start;
+  touch-action: manipulation; }
 #screen-levels { height: 100vh; height: 100dvh; max-height: 100vh; max-height: 100dvh; overflow: hidden; }
 #screen-game #board-wrap { flex: 1 1 auto; min-height: 0; align-items: flex-start; overflow: hidden; }
 #screen-game #board { margin: auto; }
@@ -132,7 +133,8 @@ html, body { margin: 0; padding: 0; background: var(--bg); color: var(--txt);
   padding: 8px; border-radius: 14px; touch-action: manipulation; user-select: none; }
 .cell { width: var(--cell); height: var(--cell); border-radius: 7px; border: 1px solid #2c2c2c;
   background: #1e1e1e; color: var(--txt); font-size: 16px; font-weight: 800;
-  display: flex; align-items: center; justify-content: center; cursor: pointer; padding: 0; }
+  display: flex; align-items: center; justify-content: center; cursor: pointer; padding: 0;
+  touch-action: manipulation; }
 .cell.covered:hover { border-color: var(--gold); }
 .cell.open { background: #0b0b0b; border-color: #1c1c1c; cursor: default; }
 .cell.flag { color: var(--gold); }
