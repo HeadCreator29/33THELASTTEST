@@ -1,0 +1,16 @@
+{
+  "name": "33-the-last-test",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "verify": "node scripts/verify.mjs",
+    "e2e": "node scripts/e2e-lock.mjs"
+  },
+  "devDependencies": {
+    "vite": "^5.4.0"
+  }
+}

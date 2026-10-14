@@ -1,0 +1,12 @@
+Aquí va tu música.
+
+1. Copia tu archivo MP3 en ESTA carpeta, junto a este archivo.
+   Ejemplo:  public/music/fondo.mp3
+2. Conéctala siguiendo los pasos que te expliqué en el chat
+   (código para src/audio.js + arranque en src/main.js).
+3. Ejecuta `npm run dev` y pulsa COMENZAR: debe sonar.
+
+Notas:
+- Usa MP3 de 64–96 kbps y menos de ~2 MB para que cargue bien en móvil.
+- No pongas nada a mano en dist/: se borra y regenera con `npm run build`.
+- Puedes borrar este archivo cuando termines; la carpeta debe quedarse.

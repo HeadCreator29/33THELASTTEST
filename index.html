@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>33 THE LAST TEST · DECA DREAM</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23060606'/%3E%3Ctext x='32' y='43' font-size='30' font-family='Arial' font-weight='bold' text-anchor='middle' fill='%23d8a94e'%3E33%3C/text%3E%3C/svg%3E" />
+  <meta name="description" content="33 niveles. Tres intentos. Cada decisión te acerca al final." />
+</head>
+<body>
+  <div id="bg-art" role="img" aria-label="La Última Cena, de Leonardo da Vinci, de fondo"></div>
+  <div id="grain"></div>
+  <div id="app">
+
+    <!-- ACCESO (código 33) -->
+    <section id="screen-lock" class="screen active">
+      <p class="brand">DECA DREAM</p>
+      <p class="game-name">THE LAST TEST</p>
+      <p class="tagline">Introduce el código de acceso.</p>
+      <div id="pin-display" class="pin-display">––</div>
+      <div id="pin-keys" class="pin-keys"></div>
+      <p id="pin-msg" class="game-msg"></p>
+    </section>
+
+    <!-- A. INICIO -->
+    <section id="screen-home" class="screen">
+      <p class="brand">DECA DREAM</p>
+      <h1 class="mega33" aria-label="33">33</h1>
+      <p class="game-name">THE LAST TEST</p>
+      <p class="tagline">Cada decisión te acerca al final.</p>
+      <div class="menu">
+        <button id="btn-start" class="btn primary">COMENZAR</button>
+        <button id="btn-continue" class="btn hidden">CONTINUAR <span id="continue-label"></span></button>
+        <div class="row">
+          <button id="btn-how" class="btn small">CÓMO JUGAR</button>
+          <button id="btn-comp" class="btn small">COMPETICIÓN</button>
+        </div>
+        <div class="row">
+          <button id="btn-sound" class="btn small ghost">SONIDO: ON</button>
+          <button id="btn-reset" class="btn small ghost danger">BORRAR</button>
+        </div>
+      </div>
+      <p class="foot">33 niveles · 3 intentos · 33 frases</p>
+    </section>
+
+    <!-- B. SELECCIÓN DE NIVELES -->
+    <section id="screen-levels" class="screen">
+      <header class="topbar">
+        <button id="btn-levels-home" class="icon-btn" title="Inicio">‹</button>
+        <div class="topbar-titles"><span class="brand-sm">33 THE LAST TEST</span><span id="levels-progress" class="muted"></span></div>
+        <button id="btn-levels-sound" class="icon-btn" title="Sonido">♪</button>
+      </header>
+      <h2 class="h2">Elige tu prueba</h2>
+      <div id="level-grid" class="level-grid"></div>
+      <div id="level-detail" class="detail hidden"></div>
+    </section>
+
+    <!-- C. PARTIDA -->
+    <section id="screen-game" class="screen">
+      <header class="topbar">
+        <button id="btn-game-menu" class="icon-btn" title="Niveles">☰</button>
+        <div class="topbar-titles">
+          <span id="game-title" class="game-title">NIVEL 1 · La Decisión</span>
+          <span id="game-sub" class="muted"></span>
+        </div>
+        <button id="btn-restart" class="icon-btn" title="Reiniciar tablero">↻</button>
+      </header>
+      <div id="hud" class="hud">
+        <div id="attempts" class="attempts" aria-label="Intentos restantes"></div>
+        <div class="hud-stats"><span id="stat-safe">▦ 0/0</span><span id="stat-flags">⚑ 0</span></div>
+      </div>
+      <div id="board-wrap"><div id="board" class="board"></div></div>
+      <p id="game-msg" class="game-msg"></p>
+      <div class="game-tools">
+        <button id="btn-flagmode" class="btn small">⚑ MODO BANDERA: OFF</button>
+        <button id="btn-hint" class="btn small">💡 PISTA (6)</button>
+      </div>
+      <p class="hint">Toque: descubrir · Mantén o clic derecho: bandera · Doble toque en número: acuerdo · 💡 descubre una casilla segura</p>
+    </section>
+  </div>
+
+  <!-- D. NIVEL COMPLETADO (frase) -->
+  <div id="ov-phrase" class="overlay hidden">
+    <div class="shade"></div>
+    <div class="phrase-card">
+      <p id="phrase-kicker" class="phrase-kicker">NIVEL 1 SUPERADO</p>
+      <p id="phrase-text" class="phrase-text"></p>
+      <button id="btn-phrase-next" class="btn primary hidden">CONTINUAR</button>
+    </div>
+  </div>
+
+  <!-- E. DERROTA -->
+  <div id="ov-defeat" class="overlay hidden">
+    <div class="shade"></div>
+    <div class="card">
+      <p class="phrase-kicker">SIN INTENTOS</p>
+      <h2 class="h2">La prueba te superó.<br/>El camino sigue ahí.</h2>
+      <div class="menu">
+        <button id="btn-retry" class="btn primary">REINTENTAR NIVEL</button>
+        <button id="btn-exit" class="btn">SALIR</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- F. FINAL SECRETO -->
+  <div id="ov-final" class="overlay hidden">
+    <div id="final-light" class="final-light"></div>
+    <div class="final-card">
+      <p class="brand">DECA DREAM</p>
+      <h1 class="mega33 sm">33</h1>
+      <p class="game-name">THE LAST TEST</p>
+      <p class="phrase-kicker">LA REVELACIÓN FINAL</p>
+      <p class="aleluya">✦ ALELUYA ✦</p>
+      <p class="final-verse">Muchos de los que ahora son los primeros, serán los últimos; y los que ahora son los últimos serán los primeros.</p>
+      <p id="final-count" class="muted"></p>
+      <div class="menu">
+        <button id="btn-share" class="btn primary">COMPARTIR POR WHATSAPP</button>
+        <button id="btn-again" class="btn">VOLVER A JUGAR</button>
+      </div>
+      <p class="foot">DECA DREAM · 33/33</p>
+    </div>
+  </div>
+
+  <!-- CÓMO JUGAR -->
+  <div id="ov-how" class="overlay hidden">
+    <div class="shade"></div>
+    <div class="card text-left">
+      <h2 class="h2">Cómo jugar</h2>
+      <ol class="how-list">
+        <li>Descubre casillas: algunas esconden <b>peligros ✦</b> (decagrama dorado). Empieza suave: el nivel 1 tiene un solo peligro.</li>
+        <li>Los <b>números</b> cuentan los peligros pegados, <b>contando las diagonales</b> (máximo 8 vecinos).</li>
+        <li>Marca con <b>⚑</b> (clic derecho, mantén pulsado, modo bandera o tecla F). El <b>doble toque</b> en un número abre lo seguro si ya pusiste sus banderas.</li>
+        <li>Gana descubriendo <b>todas las casillas seguras</b> del tablero.</li>
+        <li><b>3 intentos</b> por nivel: fallar resta 1 y tapa el tablero <b>sin mover nada</b> (ni peligros ni banderas). Memoriza la bomba.</li>
+        <li>Con intentos restantes solo verás la bomba que tocaste; en el <b>último intento se muestran todas</b> para aprender. A 0 intentos: <b>REINTENTAR</b> (3 nuevos) o <b>SALIR</b>.</li>
+        <li>¿Atascado? <b>💡 PISTA</b> descubre una casilla segura (<b>6 por tablero</b>, se renuevan).</li>
+        <li>Cada victoria revela una de las <b>33 frases</b>. La 33 abre el <b>final secreto</b>.</li>
+      </ol>
+      <button id="btn-how-close" class="btn primary">ENTENDIDO</button>
+    </div>
+  </div>
+
+  <!-- COMPETICIÓN -->
+  <div id="ov-comp" class="overlay hidden">
+    <div class="shade"></div>
+    <div class="card text-left">
+      <h2 class="h2">Competición <span class="pill">PRÓXIMAMENTE</span></h2>
+      <p class="muted">La comunidad competirá por completar los 33 niveles. Premio: <b>gorra exclusiva DECA</b>.</p>
+      <ul id="comp-rules" class="how-list"></ul>
+      <p class="muted small">El modo individual funciona sin cuentas. La clasificación y el premio requieren validación en servidor: los datos locales no bastan para ganar.</p>
+      <button id="btn-comp-close" class="btn primary">VOLVER</button>
+    </div>
+  </div>
+
+  <!-- CONFIRMAR BORRADO (pantalla propia: funciona en móvil) -->
+  <div id="ov-wipe" class="overlay hidden">
+    <div class="shade"></div>
+    <div class="card">
+      <p class="phrase-kicker">BORRAR PROGRESO</p>
+      <h2 class="h2">¿Borrar tus niveles<br/>y empezar de cero?</h2>
+      <div class="menu">
+        <button id="btn-wipe-yes" class="btn primary">SÍ, BORRAR TODO</button>
+        <button id="btn-wipe-no" class="btn">CANCELAR</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
